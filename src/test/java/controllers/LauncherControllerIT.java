@@ -33,7 +33,7 @@ public class LauncherControllerIT {
     }
 
     @Test
-    public void isRespondWithoutParametersWellGenerated() throws Exception {
+    public void isRespondWithoutParametersGeneratedAsExpected() throws Exception {
         this.mockMvc
                 .perform(get("/launcherDownloader"))
                 .andDo(print())
@@ -41,5 +41,39 @@ public class LauncherControllerIT {
                 .andExpect(header().string("Content-Disposition", "attachment; filename=" + ValuesForCreator.LAUNCHERNAME.toString()))
                 .andExpect(content().contentType("application/x-sh"))
                 .andExpect(content().string(containsString(ValuesForCreator.INTERPRETER.toString())));
+    }
+
+    @Test
+    public void isRespondWith3ParametersGeneratedAsExpected() throws Exception {
+
+        String firstScript = "showFiles";
+        String secondScript = "showProcesses";
+        String thirdScript = "numOfFilesInHome";
+
+        this.mockMvc
+                .perform(get("/launcherDownloader")
+                        .param("script", firstScript)
+                        .param("script", secondScript)
+                        .param("script", thirdScript))
+
+                .andDo(print())
+
+                .andExpect(status().isOk())
+                .andExpect(header().string("Content-Disposition", "attachment; filename=" + ValuesForCreator.LAUNCHERNAME.toString()))
+                .andExpect(content().contentType("application/x-sh"))
+
+                .andExpect(content().string(containsString(ValuesForCreator.INTERPRETER.toString())))
+
+                .andExpect(content().string(containsString(ValuesForCreator.WGETCOMMAND.toString() + firstScript)))
+                .andExpect(content().string(containsString(ValuesForCreator.WGETCOMMAND.toString() + secondScript)))
+                .andExpect(content().string(containsString(ValuesForCreator.WGETCOMMAND.toString() + thirdScript)))
+
+                .andExpect(content().string(containsString(ValuesForCreator.CHMODCOMMAND.toString() + firstScript)))
+                .andExpect(content().string(containsString(ValuesForCreator.CHMODCOMMAND.toString() + secondScript)))
+                .andExpect(content().string(containsString(ValuesForCreator.CHMODCOMMAND.toString() + thirdScript)))
+
+                .andExpect(content().string(containsString(ValuesForCreator.EXECUTECOMMAND.toString() + firstScript)))
+                .andExpect(content().string(containsString(ValuesForCreator.EXECUTECOMMAND.toString() + secondScript)))
+                .andExpect(content().string(containsString(ValuesForCreator.EXECUTECOMMAND.toString() + thirdScript)));
     }
 }
