@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import temporary.ValuesForCreator;
 
+
 import java.io.FileNotFoundException;
 
 import static org.hamcrest.CoreMatchers.containsString;
@@ -19,7 +20,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -43,10 +43,8 @@ public class ScriptsControllerIT {
                 .perform(get("/scripts/1"))
                 .andDo(print());
     }
-
     @Test
     public void isRequestToTheExistingScriptGeneratedAsExpected() throws Exception{
-
         String existingScript = "showFiles";
 
         this.mockMvc
@@ -57,6 +55,4 @@ public class ScriptsControllerIT {
                 .andExpect(content().string(containsString(ValuesForCreator.INTERPRETER.toString())))
                 .andExpect(content().string(containsString("ls -al;")));
     }
-
-
 }
