@@ -3,9 +3,12 @@ package creators;
 import temporary.ValuesForCreator;
 
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LauncherCreator {
     private File launcher;
+    private static Logger logger = Logger.getLogger("InfoLogging");
 
     public File getLauncher() {
         return launcher;
@@ -32,7 +35,7 @@ public class LauncherCreator {
             writer.close();
             return new File(ValuesForCreator.LAUNCHERNAME.toString());
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.ALL, e.getMessage());
             return null;
         }
     }

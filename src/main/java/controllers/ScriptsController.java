@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static temporary.ValuesForController.DIRECTORY_PATH;
 
@@ -15,19 +17,23 @@ import static temporary.ValuesForController.DIRECTORY_PATH;
 public class ScriptsController {
 
     private static final String SHELL_SCRIPT = "application/x-sh";
+    private static Logger logger = Logger.getLogger("InfoLogging");
 
     @RequestMapping(value = "/scripts/{scriptName}", method = RequestMethod.GET, produces = SHELL_SCRIPT)
     public void downloadScript(HttpServletResponse response, @PathVariable("scriptName") String scriptName) throws IOException {
 
         File file = getFile(scriptName);
 
-        InputStream in = new FileInputStream(file);
-
         response.setContentType(SHELL_SCRIPT);
         response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
         response.setContentLengthLong(file.length());
 
-        FileCopyUtils.copy(in, response.getOutputStream());
+        try(InputStream in = new FileInputStream(file)){
+            FileCopyUtils.copy(in, response.getOutputStream());
+        }catch(IOException e){
+            logger.log(Level.ALL, e.toString());
+        }
+
     }
 
     private File getFile(String name) throws FileNotFoundException {

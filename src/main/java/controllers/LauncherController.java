@@ -15,15 +15,18 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @RestController
 public class LauncherController {
 
     private static final String SHELL_SCRIPT = "application/x-sh";
+    private static Logger logger = Logger.getLogger("InfoLogging");
 
     @RequestMapping(value = "/launcherDownloader", method = RequestMethod.GET, produces = SHELL_SCRIPT)
     @ResponseStatus
-    public void getLauncherForScripts(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void getLauncherForScripts(HttpServletRequest request, HttpServletResponse response) {
 
         Optional<String[]> scriptsToDownload = Optional.ofNullable(request.getParameterValues(ValuesForController.NAMEINCHECKBOX.toString()));
 
@@ -35,7 +38,10 @@ public class LauncherController {
         response.setHeader("Content-Disposition", "attachment; filename=" + launcher.getName());
         response.setContentLengthLong(launcher.length());
 
-        InputStream in = new FileInputStream(launcher);
-        FileCopyUtils.copy(in, response.getOutputStream());
+        try(InputStream in = new FileInputStream(launcher)){
+            FileCopyUtils.copy(in, response.getOutputStream());
+        }catch(IOException e){
+            logger.log(Level.ALL, e.toString());
+        }
     }
 }
