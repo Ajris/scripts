@@ -25,13 +25,13 @@ public class LauncherController {
         this.launcherService = launcherService;
     }
 
-    @GetMapping(value = "/launcherDownloader", produces = SHELL_SCRIPT)
+    @GetMapping(value = "/launcher", produces = SHELL_SCRIPT)
     public void getLauncherForScripts(HttpServletRequest request, HttpServletResponse response) {
         launcherService.prepareLauncherAndStartDownload(request,response);
     }
 
-    @PostMapping(value = "/launcherUploader")
-    public ResponseEntity<File> uploadLauncher(HttpServletRequest request){
+    @PostMapping(value = "/launcher")
+    public ResponseEntity<String> uploadLauncher(HttpServletRequest request){
 
         String title = request.getParameter("scriptTitle");
         String text = request.getParameter("scriptText");
@@ -39,6 +39,7 @@ public class LauncherController {
         if(title == null)
             title = "";
         title = title.trim();
+
         if(text != null)
             text = text.trim();
 
@@ -48,10 +49,10 @@ public class LauncherController {
             PrintWriter writer = new PrintWriter(file);
             writer.println(text);
             writer.close();
-            return new ResponseEntity<>(file, HttpStatus.OK);
+            return new ResponseEntity<>("Successfully saved file.",HttpStatus.OK);
         }catch(FileNotFoundException e){
             e.printStackTrace();
-            return new ResponseEntity<>(file, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Sth went wrong, maybe wrong title?",HttpStatus.NOT_FOUND);
         }
     }
 }
