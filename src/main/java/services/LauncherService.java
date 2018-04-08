@@ -27,8 +27,8 @@ public class LauncherService {
         this.responseService = responseService;
     }
 
-    public void startDownloading(HttpServletRequest request, HttpServletResponse response) {
-        File launcher = launcherFileService.prepareFile(request);
+    public void prepareLauncherAndStartDownload(HttpServletRequest request, HttpServletResponse response) {
+        File launcher = launcherFileService.prepareLauncherFile(request);
         response = responseService.prepareResponse(response, launcher.getName(), launcher.length());
 
         try (InputStream in = new FileInputStream(launcher)) {
