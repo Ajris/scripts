@@ -1,6 +1,6 @@
 package controllers;
 import org.springframework.web.bind.annotation.*;
-import services.LauncherService;
+import services.launcher.LauncherService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

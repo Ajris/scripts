@@ -1,4 +1,4 @@
-package services;
+package services.launcher;
 
 import creators.LauncherCreator;
 import org.springframework.stereotype.Service;

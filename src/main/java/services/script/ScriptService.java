@@ -1,6 +1,7 @@
-package services;
+package services.script;
 
 import org.springframework.stereotype.Service;
+import services.DownloadFileService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
