@@ -16,7 +16,15 @@ public class DownloadFileService {
 
     private static Logger logger = Logger.getLogger("InfoLogging");
 
-    public void downloadFile(HttpServletResponse response, File file){
+    private ResponseService responseService;
+
+    public DownloadFileService(ResponseService responseService) {
+        this.responseService = responseService;
+    }
+
+    public void prepareResponseAndDownloadFile(HttpServletResponse response, File file){
+        responseService.prepareResponse(response, file.getName(), file.length());
+
         try (InputStream in = new FileInputStream(file)) {
             FileCopyUtils.copy(in, response.getOutputStream());
         } catch (IOException e) {
