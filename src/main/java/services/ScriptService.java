@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,24 +13,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class LauncherService {
+public class ScriptService {
 
     private static Logger logger = Logger.getLogger("InfoLogging");
 
-    private LauncherFileService launcherFileService;
     private ResponseService responseService;
+    private ScriptFileService scriptFileService;
 
     @Autowired
-    public LauncherService(LauncherFileService launcherFileService, ResponseService responseService) {
-        this.launcherFileService = launcherFileService;
+    public ScriptService(ResponseService responseService, ScriptFileService scriptFileService) {
         this.responseService = responseService;
+        this.scriptFileService = scriptFileService;
     }
 
-    public void prepareLauncherAndStartDownload(HttpServletRequest request, HttpServletResponse response) {
-        File launcher = launcherFileService.prepareLauncherFile(request);
-        response = responseService.prepareResponse(response, launcher.getName(), launcher.length());
+    public void prepareScriptAndStartDownload(HttpServletResponse response, String scriptName) throws IOException {
+        File file = scriptFileService.getFile(scriptName);
+        response = responseService.prepareResponse(response, file.getName(), file.length());
 
-        try (InputStream in = new FileInputStream(launcher)) {
+        try (InputStream in = new FileInputStream(file)) {
             FileCopyUtils.copy(in, response.getOutputStream());
         } catch (IOException e) {
             logger.log(Level.ALL, e.toString());

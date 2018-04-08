@@ -10,6 +10,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import services.ResponseService;
+import services.ScriptFileService;
+import services.ScriptService;
 import temporary.ValuesForCreator;
 
 
@@ -23,7 +26,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-@ContextConfiguration(classes = ScriptsController.class)
+@ContextConfiguration(classes = {
+        ScriptsController.class,
+        ScriptService.class,
+        ResponseService.class,
+        ScriptFileService.class
+})
 public class ScriptsControllerIT {
 
     @Autowired

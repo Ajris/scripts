@@ -18,6 +18,6 @@ public class LauncherController {
 
     @GetMapping(value = "/launcherDownloader", produces = SHELL_SCRIPT)
     public void getLauncherForScripts(HttpServletRequest request, HttpServletResponse response) {
-        launcherService.startDownloading(request,response);
+        launcherService.prepareLauncherAndStartDownload(request,response);
     }
 }

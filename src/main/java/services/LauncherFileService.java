@@ -11,8 +11,9 @@ import java.util.Optional;
 @Service
 public class LauncherFileService {
 
-    public File prepareFile(HttpServletRequest request) {
-        Optional<String[]> scriptsToDownload = Optional.ofNullable(request.getParameterValues(ValuesForController.NAMEINCHECKBOX.toString()));
+    public File prepareLauncherFile(HttpServletRequest request) {
+        Optional<String[]> scriptsToDownload = Optional.ofNullable(
+                request.getParameterValues(ValuesForController.NAMEINCHECKBOX.toString()));
 
         return new LauncherCreator()
                 .buildLauncher(scriptsToDownload.orElse(new String[0]))
