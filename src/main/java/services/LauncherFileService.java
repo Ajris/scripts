@@ -11,10 +11,10 @@ import java.util.Optional;
 @Service
 public class LauncherFileService {
 
-    public File prepareFile(HttpServletRequest request){
+    public File prepareFile(HttpServletRequest request) {
         Optional<String[]> scriptsToDownload = Optional.ofNullable(request.getParameterValues(ValuesForController.NAMEINCHECKBOX.toString()));
 
-        return  new LauncherCreator()
+        return new LauncherCreator()
                 .buildLauncher(scriptsToDownload.orElse(new String[0]))
                 .getLauncher();
     }
