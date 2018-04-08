@@ -1,5 +1,6 @@
 package services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,19 +22,24 @@ public class ScriptService {
     private static final String SHELL_SCRIPT = "application/x-sh";
     private static Logger logger = Logger.getLogger("InfoLogging");
 
-    public void downloadScript(HttpServletResponse response, String scriptName) throws IOException {
-        File file = getFile(scriptName);
+    private ResponseService responseService;
+    private ScriptFileService scriptFileService;
 
-        response.setContentType(SHELL_SCRIPT);
-        response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
-        response.setContentLengthLong(file.length());
+    @Autowired
+    public ScriptService(ResponseService responseService, ScriptFileService scriptFileService) {
+        this.responseService = responseService;
+        this.scriptFileService = scriptFileService;
+    }
+
+    public void downloadScript(HttpServletResponse response, String scriptName) throws IOException {
+        File file = scriptFileService.getFile(scriptName);
+        response = responseService.prepareResponse(response, file.getName(), file.length());
 
         try(InputStream in = new FileInputStream(file)){
             FileCopyUtils.copy(in, response.getOutputStream());
         }catch(IOException e){
             logger.log(Level.ALL, e.toString());
         }
-
     }
 
 
