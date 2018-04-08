@@ -12,8 +12,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import services.DownloadFileService;
 import services.ResponseService;
-import services.ScriptFileService;
-import services.ScriptService;
+import services.script.ScriptFileService;
+import services.script.ScriptService;
 import temporary.ValuesForCreator;
 
 

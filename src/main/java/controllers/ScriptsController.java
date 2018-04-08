@@ -2,7 +2,7 @@ package controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import services.ScriptService;
+import services.script.ScriptService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
