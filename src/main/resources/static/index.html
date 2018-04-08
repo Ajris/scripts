@@ -5,18 +5,26 @@
     <title>Scripts</title>
 </head>
 <body bgcolor="aqua">
-<left>
+<center>
     <font size="5" color="#dc143c">Launcher for scripts: </font><br>
-
-    <form action="/launcherDownloader" method="get">
+    <form action="/launcher" method="get">
         <input type="checkbox" name="script" value="showFiles">showFiles<br>
         <input type="checkbox" name="script" value="showProcesses">showProcesses<br>
         <input type="checkbox" name="script" value="numOfFilesInHome">numOfFilesInHome<br>
-        <br><br>
-
-        <input type="submit" value="Submit">
+        <br>
+        <input type="submit" value="Download">
     </form>
+    <form action="/launcher" method="post">
+        <textarea rows="1" cols="15" name="scriptTitle">title
+        </textarea>
+        <br>
+        <textarea rows="4" cols="50" name="scriptText">Paste your script here.
+        </textarea>
+        <br>
+        <input type="submit" value="Upload">
+    </form>
+</center>
 
-</left>
+
 </body>
 </html>

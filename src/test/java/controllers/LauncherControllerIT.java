@@ -43,9 +43,9 @@ public class LauncherControllerIT {
     }
 
     @Test
-    public void isRespondWithoutParametersGeneratedAsExpected() throws Exception {
+    public void isGetWith0ParametersCorrect() throws Exception {
         this.mockMvc
-                .perform(get("/launcherDownloader"))
+                .perform(get("/launcher"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(header().string("Content-Disposition", "attachment; filename=" + ValuesForCreator.LAUNCHERNAME.toString()))
@@ -54,12 +54,12 @@ public class LauncherControllerIT {
     }
 
     @Test
-    public void isRespondWith1ParameterGeneratedAsExpected() throws Exception {
+    public void isGetWith1ParametersCorrect() throws Exception {
 
         String firstScript = "showFiles";
 
         this.mockMvc
-                .perform(get("/launcherDownloader")
+                .perform(get("/launcher")
                         .param("script", firstScript))
 
                 .andDo(print())
@@ -78,13 +78,13 @@ public class LauncherControllerIT {
     }
 
     @Test
-    public void isRespondWith2ParametersGeneratedAsExpected() throws Exception {
+    public void isGetWith2ParametersCorrect() throws Exception {
 
         String firstScript = "showFiles";
         String secondScript = "showProcesses";
 
         this.mockMvc
-                .perform(get("/launcherDownloader")
+                .perform(get("/launcher")
                         .param("script", firstScript)
                         .param("script", secondScript))
 
@@ -107,14 +107,14 @@ public class LauncherControllerIT {
     }
 
     @Test
-    public void isRespondWith3ParametersGeneratedAsExpected() throws Exception {
+    public void isGetWith3ParametersCorrect() throws Exception {
 
         String firstScript = "showFiles";
         String secondScript = "showProcesses";
         String thirdScript = "numOfFilesInHome";
 
         this.mockMvc
-                .perform(get("/launcherDownloader")
+                .perform(get("/launcher")
                         .param("script", firstScript)
                         .param("script", secondScript)
                         .param("script", thirdScript))
@@ -139,4 +139,8 @@ public class LauncherControllerIT {
                 .andExpect(content().string(containsString(ValuesForCreator.EXECUTECOMMAND.toString() + secondScript)))
                 .andExpect(content().string(containsString(ValuesForCreator.EXECUTECOMMAND.toString() + thirdScript)));
     }
+
+
+
+
 }

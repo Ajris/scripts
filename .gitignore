@@ -90,3 +90,5 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+launcher.sh
+title.sh
