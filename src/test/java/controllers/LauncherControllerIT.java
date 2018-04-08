@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import services.LauncherFileService;
 import services.LauncherService;
+import services.ResponseService;
 import temporary.ValuesForCreator;
 
 import static org.hamcrest.CoreMatchers.containsString;
@@ -22,7 +23,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-@ContextConfiguration(classes = {LauncherController.class, LauncherService.class, LauncherFileService.class})
+@ContextConfiguration(classes = {
+        LauncherController.class,
+        LauncherService.class,
+        LauncherFileService.class,
+        ResponseService.class
+})
 public class LauncherControllerIT {
 
     @Autowired
