@@ -9,6 +9,7 @@ import static temporary.ValuesForController.DIRECTORY_PATH;
 
 @Service
 public class ScriptFileService {
+
     public File getFile(String name) throws FileNotFoundException {
 
         File file = new File(DIRECTORY_PATH + name);
@@ -19,5 +20,4 @@ public class ScriptFileService {
 
         return file;
     }
-
 }
