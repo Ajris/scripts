@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import services.DownloadFileService;
 import services.LauncherFileService;
 import services.LauncherService;
 import services.ResponseService;
@@ -27,7 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         LauncherController.class,
         LauncherService.class,
         LauncherFileService.class,
-        ResponseService.class
+        ResponseService.class,
+        DownloadFileService.class
 })
 public class LauncherControllerIT {
 

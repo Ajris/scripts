@@ -1,40 +1,28 @@
 package services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileCopyUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Service
 public class LauncherService {
 
-    private static Logger logger = Logger.getLogger("InfoLogging");
-
     private LauncherFileService launcherFileService;
     private ResponseService responseService;
+    private DownloadFileService downloadFileService;
 
-    @Autowired
-    public LauncherService(LauncherFileService launcherFileService, ResponseService responseService) {
+    public LauncherService(LauncherFileService launcherFileService, ResponseService responseService, DownloadFileService downloadFileService) {
         this.launcherFileService = launcherFileService;
         this.responseService = responseService;
+        this.downloadFileService = downloadFileService;
     }
 
     public void prepareLauncherAndStartDownload(HttpServletRequest request, HttpServletResponse response) {
         File launcher = launcherFileService.prepareLauncherFile(request);
         response = responseService.prepareResponse(response, launcher.getName(), launcher.length());
 
-        try (InputStream in = new FileInputStream(launcher)) {
-            FileCopyUtils.copy(in, response.getOutputStream());
-        } catch (IOException e) {
-            logger.log(Level.ALL, e.toString());
-        }
+        downloadFileService.downloadFile(response, launcher);
     }
 }
