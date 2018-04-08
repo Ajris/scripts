@@ -1,6 +1,7 @@
 package services;
 
 import creators.LauncherCreator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import temporary.ValuesForController;
@@ -21,12 +22,11 @@ public class LauncherService {
     private static Logger logger = Logger.getLogger("InfoLogging");
     private static final String SHELL_SCRIPT = "application/x-sh";
 
-    private File prepareFile(HttpServletRequest request){
-        Optional<String[]> scriptsToDownload = Optional.ofNullable(request.getParameterValues(ValuesForController.NAMEINCHECKBOX.toString()));
+    private LauncherFileService launcherFileService;
 
-        return  new LauncherCreator()
-                .buildLauncher(scriptsToDownload.orElse(new String[0]))
-                .getLauncher();
+    @Autowired
+    public LauncherService(LauncherFileService launcherFileService) {
+        this.launcherFileService = launcherFileService;
     }
 
     private HttpServletResponse prepareResponse(HttpServletResponse response, String fileName, Long length){
@@ -38,7 +38,7 @@ public class LauncherService {
     }
 
     public void startDownloading(HttpServletRequest request, HttpServletResponse response){
-        File launcher = prepareFile(request);
+        File launcher = launcherFileService.prepareFile(request);
         response = prepareResponse(response, launcher.getName(), launcher.length());
 
         try(InputStream in = new FileInputStream(launcher)){
