@@ -1,21 +1,18 @@
 package entity;
 
 
-import org.apache.tomcat.jni.Address;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Document(collection = "script")
 public class Script {
     @Id
     private String id;
+
+    @Indexed(useGeneratedName = true, unique = true)
     private String title;
+
     private String text;
 
     public Script(String title, String text) {
@@ -23,7 +20,8 @@ public class Script {
         this.text = text;
     }
 
-    public Script() {}
+    public Script() {
+    }
 
     public Script(String personId, String title, String text) {
         super();
