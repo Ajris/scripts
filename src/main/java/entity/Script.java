@@ -10,7 +10,7 @@ public class Script {
     @Id
     private String id;
 
-    @Indexed(useGeneratedName = true, unique = true)
+    @Indexed(unique = true)
     private String title;
 
     private String text;

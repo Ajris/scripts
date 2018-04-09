@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import services.DownloadFileService;
+import services.ScriptRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,11 +19,12 @@ public class LauncherService {
 
     private LauncherFileService launcherFileService;
     private DownloadFileService downloadFileService;
+    private ScriptRepository scriptRepository;
 
-
-    public LauncherService(LauncherFileService launcherFileService, DownloadFileService downloadFileService) {
+    public LauncherService(LauncherFileService launcherFileService, DownloadFileService downloadFileService, ScriptRepository scriptRepository) {
         this.launcherFileService = launcherFileService;
         this.downloadFileService = downloadFileService;
+        this.scriptRepository = scriptRepository;
     }
 
     public void downloadLauncher(HttpServletRequest request, HttpServletResponse response) {

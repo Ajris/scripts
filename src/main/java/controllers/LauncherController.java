@@ -19,12 +19,8 @@ public class LauncherController {
 
     private LauncherService launcherService;
 
-    private final ScriptRepository scriptRepository;
-
-    @Autowired
-    public LauncherController(LauncherService launcherService, ScriptRepository scriptRepository) {
+    public LauncherController(LauncherService launcherService) {
         this.launcherService = launcherService;
-        this.scriptRepository = scriptRepository;
     }
 
     @GetMapping(value = "/launcher", produces = SHELL_SCRIPT)
