@@ -28,13 +28,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @ContextConfiguration(classes = {
-        ScriptsController.class,
+        WgetFromLauncherController.class,
         ScriptService.class,
         ResponseService.class,
         ScriptFileService.class,
         DownloadFileService.class
 })
-public class ScriptsControllerIT {
+public class WgetFromLauncherControllerIT {
 
     @Autowired
     WebApplicationContext webApplicationContext;

@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
-public class ScriptsController {
+public class WgetFromLauncherController {
 
     private static final String SHELL_SCRIPT = "application/x-sh";
 
     private ScriptService scriptService;
 
     @Autowired
-    public ScriptsController(ScriptService scriptService) {
+    public WgetFromLauncherController(ScriptService scriptService) {
         this.scriptService = scriptService;
     }
 

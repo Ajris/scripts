@@ -27,9 +27,4 @@ public class LauncherController {
     public void getLauncherForScripts(HttpServletRequest request, HttpServletResponse response) {
         launcherService.downloadLauncher(request, response);
     }
-
-    @PostMapping(value = "/launcher")
-    public ResponseEntity<String> uploadLauncher(HttpServletRequest request) {
-        return launcherService.createNewScript(request);
-    }
 }

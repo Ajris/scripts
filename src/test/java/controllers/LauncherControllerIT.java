@@ -45,7 +45,6 @@ public class LauncherControllerIT {
 
     private MockMvc mockMvc;
 
-    private Mockito mockito;
 
     @Before
     public void setup() {
