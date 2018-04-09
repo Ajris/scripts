@@ -1,11 +1,13 @@
 package controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 import services.script.ScriptService;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.IOException;
 
 @RestController
 public class ScriptsController {
@@ -21,6 +23,6 @@ public class ScriptsController {
 
     @GetMapping(value = "/scripts/{scriptName}", produces = SHELL_SCRIPT)
     public void downloadScript(HttpServletResponse response, @PathVariable("scriptName") String scriptName) throws IOException {
-        scriptService.prepareScriptAndStartDownload(response, scriptName);
+        scriptService.downloadScript(response, scriptName);
     }
 }

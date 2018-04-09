@@ -18,7 +18,7 @@ public class ScriptService {
         this.downloadFileService = downloadFileService;
     }
 
-    public void prepareScriptAndStartDownload(HttpServletResponse response, String scriptName) throws IOException {
+    public void downloadScript(HttpServletResponse response, String scriptName) throws IOException {
         File file = scriptFileService.getFile(scriptName);
 
         downloadFileService.prepareResponseAndDownloadFile(response, file);
