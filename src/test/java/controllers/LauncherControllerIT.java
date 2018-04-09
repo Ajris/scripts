@@ -3,17 +3,21 @@ package controllers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import services.DownloadFileService;
+import services.ScriptRepository;
+import services.ResponseService;
 import services.launcher.LauncherFileService;
 import services.launcher.LauncherService;
-import services.ResponseService;
 import temporary.ValuesForCreator;
 
 import static org.hamcrest.CoreMatchers.containsString;
@@ -29,14 +33,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         LauncherService.class,
         LauncherFileService.class,
         ResponseService.class,
-        DownloadFileService.class
+        DownloadFileService.class,
+        ScriptRepository.class
 })
+@EnableAutoConfiguration
+@EnableMongoRepositories(basePackages = {"services"})
 public class LauncherControllerIT {
 
     @Autowired
     WebApplicationContext webApplicationContext;
 
     private MockMvc mockMvc;
+
+    private Mockito mockito;
 
     @Before
     public void setup() {
@@ -52,59 +61,6 @@ public class LauncherControllerIT {
                 .andExpect(header().string("Content-Disposition", "attachment; filename=" + ValuesForCreator.LAUNCHERNAME.toString()))
                 .andExpect(content().contentType("application/x-sh"))
                 .andExpect(content().string(containsString(ValuesForCreator.INTERPRETER.toString())));
-    }
-
-    @Test
-    public void isGetWith1ParametersCorrect() throws Exception {
-
-        String firstScript = "showFiles";
-
-        this.mockMvc
-                .perform(get("/launcher")
-                        .param("script", firstScript))
-
-                .andDo(print())
-
-                .andExpect(status().isOk())
-                .andExpect(header().string("Content-Disposition", "attachment; filename=" + ValuesForCreator.LAUNCHERNAME.toString()))
-                .andExpect(content().contentType("application/x-sh"))
-
-                .andExpect(content().string(containsString(ValuesForCreator.INTERPRETER.toString())))
-
-                .andExpect(content().string(containsString(ValuesForCreator.WGETCOMMAND.toString() + firstScript)))
-
-                .andExpect(content().string(containsString(ValuesForCreator.CHMODCOMMAND.toString() + firstScript)))
-
-                .andExpect(content().string(containsString(ValuesForCreator.EXECUTECOMMAND.toString() + firstScript)));
-    }
-
-    @Test
-    public void isGetWith2ParametersCorrect() throws Exception {
-
-        String firstScript = "showFiles";
-        String secondScript = "showProcesses";
-
-        this.mockMvc
-                .perform(get("/launcher")
-                        .param("script", firstScript)
-                        .param("script", secondScript))
-
-                .andDo(print())
-
-                .andExpect(status().isOk())
-                .andExpect(header().string("Content-Disposition", "attachment; filename=" + ValuesForCreator.LAUNCHERNAME.toString()))
-                .andExpect(content().contentType("application/x-sh"))
-
-                .andExpect(content().string(containsString(ValuesForCreator.INTERPRETER.toString())))
-
-                .andExpect(content().string(containsString(ValuesForCreator.WGETCOMMAND.toString() + firstScript)))
-                .andExpect(content().string(containsString(ValuesForCreator.WGETCOMMAND.toString() + secondScript)))
-
-                .andExpect(content().string(containsString(ValuesForCreator.CHMODCOMMAND.toString() + firstScript)))
-                .andExpect(content().string(containsString(ValuesForCreator.CHMODCOMMAND.toString() + secondScript)))
-
-                .andExpect(content().string(containsString(ValuesForCreator.EXECUTECOMMAND.toString() + firstScript)))
-                .andExpect(content().string(containsString(ValuesForCreator.EXECUTECOMMAND.toString() + secondScript)));
     }
 
     @Test
@@ -142,7 +98,7 @@ public class LauncherControllerIT {
     }
 
     @Test
-    public void isPostWithoutTitleAndTextWorking() throws Exception{
+    public void isPostWithoutTitleAndTextWorking() throws Exception {
         this.mockMvc
                 .perform(post("/launcher"))
                 .andDo(print())
@@ -150,16 +106,16 @@ public class LauncherControllerIT {
     }
 
     @Test
-    public void isPostWithTitleAndWithoutTextWorking() throws Exception{
+    public void isPostWithTitleAndWithoutTextWorking() throws Exception {
         this.mockMvc
                 .perform(post("/launcher")
-                .param("scriptTitle", "title"))
+                        .param("scriptTitle", "title"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void isPostWithoutTitleAndWithTextWorking() throws Exception{
+    public void isPostWithoutTitleAndWithTextWorking() throws Exception {
         this.mockMvc
                 .perform(post("/launcher")
                         .param("scriptText", "text"))
@@ -168,7 +124,7 @@ public class LauncherControllerIT {
     }
 
     @Test
-    public void isPostWithTitleAndWithTextWorking() throws Exception{
+    public void isPostWithTitleAndWithTextWorking() throws Exception {
         this.mockMvc
                 .perform(post("/launcher")
                         .param("scriptTitle", "title")
@@ -176,7 +132,4 @@ public class LauncherControllerIT {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
-
-
-
 }
