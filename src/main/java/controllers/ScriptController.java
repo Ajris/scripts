@@ -27,7 +27,6 @@ public class ScriptController {
     @ResponseStatus(HttpStatus.CREATED)
     public void uploadScript(@RequestParam(name = "scriptTitle") String title,
                              @RequestParam(name = "scriptText") String text) {
-
         try {
             scriptRepository.save(new Script(title, text));
         } catch (DuplicateKeyException e) {
