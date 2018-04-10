@@ -95,40 +95,4 @@ public class LauncherControllerIT {
                 .andExpect(content().string(containsString(ValuesForCreator.EXECUTECOMMAND.toString() + secondScript)))
                 .andExpect(content().string(containsString(ValuesForCreator.EXECUTECOMMAND.toString() + thirdScript)));
     }
-
-    @Test
-    public void isPostWithoutTitleAndTextWorking() throws Exception {
-        this.mockMvc
-                .perform(post("/launcher"))
-                .andDo(print())
-                .andExpect(status().is4xxClientError());
-    }
-
-    @Test
-    public void isPostWithTitleAndWithoutTextWorking() throws Exception {
-        this.mockMvc
-                .perform(post("/launcher")
-                        .param("scriptTitle", "title"))
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    public void isPostWithoutTitleAndWithTextWorking() throws Exception {
-        this.mockMvc
-                .perform(post("/launcher")
-                        .param("scriptText", "text"))
-                .andDo(print())
-                .andExpect(status().is4xxClientError());
-    }
-
-    @Test
-    public void isPostWithTitleAndWithTextWorking() throws Exception {
-        this.mockMvc
-                .perform(post("/launcher")
-                        .param("scriptTitle", "title")
-                        .param("scriptText", "text"))
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
 }

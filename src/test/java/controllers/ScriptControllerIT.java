@@ -34,19 +34,15 @@ import static org.mockito.Mockito.*;
 public class ScriptControllerIT {
 
     @Mock
-    ScriptController scriptController;
+    private ScriptController scriptController;
 
     @Autowired
-    ScriptRepository scriptRepository;
-
-    @Before
-    public void setUpScriptController(){
-        scriptController = mock(ScriptController.class);
-    }
+    private ScriptRepository scriptRepository;
 
     @Test
     public void checkIfNonExistingScriptSaves() {
         Script script = new Script("1", "1");
+        doNothing().when(scriptController).uploadScript(script.getTitle(), script.getText());
         if(!scriptRepository.findByTitle(script.getTitle()).isPresent()){
             scriptController.uploadScript(script.getTitle(), script.getText());
         }
@@ -56,15 +52,9 @@ public class ScriptControllerIT {
     @Test(expected = DuplicateKeyException.class)
     public void checkIfExistingScriptThrowAnException() {
         Script script = new Script("first", "A");
-
         if(scriptRepository.findByTitle(script.getTitle()).isPresent()){
-            doThrow(DuplicateKeyException.class)
-                    .when(scriptController)
-                    .uploadScript(script.getTitle(), script.getText());
+            when(scriptRepository.save(script)).thenThrow(DuplicateKeyException.class);
         }
-
         scriptController.uploadScript(script.getTitle(), script.getText());
     }
-
-
 }
