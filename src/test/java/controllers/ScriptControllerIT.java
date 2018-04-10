@@ -61,8 +61,6 @@ public class ScriptControllerIT {
             doThrow(DuplicateKeyException.class)
                     .when(scriptController)
                     .uploadScript(script.getTitle(), script.getText());
-        } else{
-            fail();
         }
 
         scriptController.uploadScript(script.getTitle(), script.getText());
