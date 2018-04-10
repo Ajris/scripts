@@ -8,12 +8,12 @@ import java.io.File;
 import java.io.IOException;
 
 @Service
-public class ScriptService {
+public class WgetFromLauncherService {
 
     private ScriptFileService scriptFileService;
     private DownloadFileService downloadFileService;
 
-    public ScriptService(ScriptFileService scriptFileService, DownloadFileService downloadFileService) {
+    public WgetFromLauncherService(ScriptFileService scriptFileService, DownloadFileService downloadFileService) {
         this.scriptFileService = scriptFileService;
         this.downloadFileService = downloadFileService;
     }
