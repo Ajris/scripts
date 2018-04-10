@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 @Service
 public class DownloadFileService {
 
-    private static Logger logger = Logger.getLogger("InfoLogging");
+    private static Logger LOGGER = Logger.getLogger("InfoLogging");
 
     private ResponseService responseService;
 
@@ -22,13 +22,13 @@ public class DownloadFileService {
         this.responseService = responseService;
     }
 
-    public void prepareResponseAndDownloadFile(HttpServletResponse response, File file){
+    public void downloadFile(HttpServletResponse response, File file){
         responseService.prepareResponse(response, file.getName(), file.length());
 
         try (InputStream in = new FileInputStream(file)) {
             FileCopyUtils.copy(in, response.getOutputStream());
         } catch (IOException e) {
-            logger.log(Level.ALL, e.toString());
+            LOGGER.log(Level.ALL, e.toString());
         }
     }
 }
