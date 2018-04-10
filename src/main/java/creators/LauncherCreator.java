@@ -2,67 +2,35 @@ package creators;
 
 import temporary.ValuesForCreator;
 
-import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class LauncherCreator {
-    private File launcher;
-    private static Logger logger = Logger.getLogger("InfoLogging");
+    private StringBuilder text1;
 
-    public File getLauncher() {
-        return launcher;
+    public LauncherCreator(String[] scriptTitles) {
+        this.text1 = generateLauncher(scriptTitles);
     }
 
-    public LauncherCreator buildLauncher(String[] scriptNames) {
-        this.launcher = generateLauncher(scriptNames);
-        return this;
+    public StringBuilder getText() {
+        return text1;
     }
 
-    private File generateLauncher(String[] scriptNames) {
-        Writer writer;
-        try {
-            writer = new BufferedWriter(new FileWriter(ValuesForCreator.LAUNCHERNAME.toString()));
+    private StringBuilder generateLauncher(String[] scriptTitles){
 
-            writeInterpreter(writer);
+        StringBuilder text = new StringBuilder();
 
-            writeWGETCommands(scriptNames, writer);
+        text.append(ValuesForCreator.INTERPRETER.toString());
+        text.append("\n");
 
-            writeCHMODCommands(scriptNames, writer);
-
-            writeExecuteCommands(scriptNames, writer);
-
-            writer.close();
-            return new File(ValuesForCreator.LAUNCHERNAME.toString());
-        } catch (IOException e) {
-            logger.log(Level.ALL, e.getMessage());
-            return null;
+        for(String scriptName : scriptTitles){
+            text.append(ValuesForCreator.WGETCOMMAND.toString()).append(scriptName).append("\n");
         }
-    }
 
-    private void writeInterpreter(Writer writer) throws IOException {
-        writer.write(ValuesForCreator.INTERPRETER.toString());
-        writer.write("\n");
-    }
-
-    private void writeWGETCommands(String[] scriptNames, Writer writer) throws IOException {
-        for (String scriptName : scriptNames) {
-            writer.write(ValuesForCreator.WGETCOMMAND.toString() + scriptName);
-            writer.write("\n");
+        for(String scriptName : scriptTitles){
+            text.append(ValuesForCreator.CHMODCOMMAND.toString()).append(scriptName).append("\n");
         }
-    }
 
-    private void writeCHMODCommands(String[] scriptNames, Writer writer) throws IOException {
-        for (String scriptName : scriptNames) {
-            writer.write(ValuesForCreator.CHMODCOMMAND.toString() + scriptName);
-            writer.write("\n");
+        for(String scriptName : scriptTitles){
+            text.append(ValuesForCreator.EXECUTECOMMAND.toString()).append(scriptName).append("\n");
         }
-    }
-
-    private void writeExecuteCommands(String[] scriptNames, Writer writer) throws IOException {
-        for (String scriptName : scriptNames) {
-            writer.write(ValuesForCreator.EXECUTECOMMAND.toString() + scriptName);
-            writer.write("\n");
-        }
+        return text;
     }
 }

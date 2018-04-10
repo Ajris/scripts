@@ -13,9 +13,9 @@ import java.io.IOException;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
-public class LauncherCreatorTest {
+public class LauncherCreator1Test {
 
-    private LauncherCreator launcherCreator;
+    private LauncherCreator1 launcherCreator1;
     private String[] scriptNames;
     private File file;
     private String[] fileInStringArray;
@@ -29,7 +29,7 @@ public class LauncherCreatorTest {
     }
 
     private void setLauncherCreator() {
-        launcherCreator = new LauncherCreator();
+        launcherCreator1 = new LauncherCreator1();
     }
 
     private void setScriptNames() {
@@ -40,7 +40,7 @@ public class LauncherCreatorTest {
     }
 
     private void setFile(String[] scriptNames) {
-        file = launcherCreator
+        file = launcherCreator1
                 .buildLauncher(scriptNames)
                 .getLauncher();
     }

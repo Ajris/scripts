@@ -34,26 +34,6 @@ public class LauncherController {
 
     @GetMapping(value = "/launcher1", produces = "application/json")
     public ResponseEntity<InputStreamResource> downloadScript(@RequestParam("script") String[] scriptNames) {
-        String toDownload = "";
-        toDownload += ValuesForCreator.INTERPRETER.toString();
-        toDownload += "\n";
-
-        for(String scriptName : scriptNames){
-            toDownload += ValuesForCreator.WGETCOMMAND.toString() + scriptName + "\n";
-        }
-
-        for(String scriptName : scriptNames){
-            toDownload += ValuesForCreator.CHMODCOMMAND.toString() + scriptName + "\n";
-        }
-
-        for(String scriptName : scriptNames){
-            toDownload += ValuesForCreator.EXECUTECOMMAND.toString() + scriptName + "\n";
-        }
-
-        return ResponseEntity
-                .ok()
-                .contentLength(toDownload.length())
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .body(new InputStreamResource(new ByteArrayInputStream(toDownload.getBytes())));
+        return launcherService.downloadLauncher1(scriptNames);
     }
 }

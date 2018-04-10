@@ -1,6 +1,6 @@
 package services.launcher;
 
-import creators.LauncherCreator;
+import creators.LauncherCreator1;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +14,7 @@ public class LauncherFileService {
         Optional<String[]> scriptsToDownload = Optional.ofNullable(
                 request.getParameterValues("script"));
 
-        return new LauncherCreator()
+        return new LauncherCreator1()
                 .buildLauncher(scriptsToDownload.orElse(new String[0]))
                 .getLauncher();
     }
