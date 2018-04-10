@@ -26,7 +26,7 @@ public class ScriptController {
     @PostMapping(value = "/uploadScript")
     @ResponseStatus(HttpStatus.CREATED)
     public void uploadScript(@RequestParam(name = "scriptTitle") String title,
-                             @RequestParam(name = "scriptText") String text) throws DuplicateKeyException {
+                             @RequestParam(name = "scriptText") String text) {
         scriptService.uploadScript(title, text);
     }
 

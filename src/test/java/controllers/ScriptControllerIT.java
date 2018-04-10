@@ -19,6 +19,7 @@ import org.springframework.web.util.NestedServletException;
 import services.DownloadFileService;
 import services.ResponseService;
 import services.ScriptRepository;
+import services.UploadFileService;
 import services.script.ScriptFileService;
 import services.script.ScriptService;
 
@@ -38,7 +39,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         ScriptFileService.class,
         DownloadFileService.class,
         ScriptRepository.class,
-        ScriptController.class
+        ScriptController.class,
+        UploadFileService.class
 })
 public class ScriptControllerIT {
 
