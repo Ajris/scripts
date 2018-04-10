@@ -1,4 +1,4 @@
-package services.script;
+package services;
 
 import entity.Script;
 import org.springframework.core.io.InputStreamResource;

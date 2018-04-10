@@ -3,6 +3,7 @@ package services.script;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import services.DownloadFileService;
 
 @Service
 public class ScriptService {
