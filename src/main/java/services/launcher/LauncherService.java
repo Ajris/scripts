@@ -17,21 +17,7 @@ import java.util.Optional;
 @Service
 public class LauncherService {
 
-    private LauncherFileService launcherFileService;
-    private DownloadFileService downloadFileService;
-
-    public LauncherService(LauncherFileService launcherFileService, DownloadFileService downloadFileService) {
-        this.launcherFileService = launcherFileService;
-        this.downloadFileService = downloadFileService;
-    }
-
-    public void downloadLauncher(HttpServletRequest request, HttpServletResponse response) {
-        File launcher = launcherFileService.prepareLauncherFile(request);
-
-        downloadFileService.downloadFile(response, launcher);
-    }
-
-    public ResponseEntity<InputStreamResource> downloadLauncher1(String[] scriptNames){
+    public ResponseEntity<InputStreamResource> downloadLauncher(String[] scriptNames){
         String launcherText = new LauncherCreator(scriptNames).getText().toString();
 
         return ResponseEntity

@@ -17,7 +17,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.util.NestedServletException;
 import services.DownloadFileService;
-import services.ResponseService;
 import services.script.ScriptRepository;
 import services.script.UploadFileService;
 import services.script.ScriptFileService;
@@ -35,7 +34,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = {
         ScriptRepository.class,
         ScriptService.class,
-        ResponseService.class,
         ScriptFileService.class,
         DownloadFileService.class,
         ScriptRepository.class,

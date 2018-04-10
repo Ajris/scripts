@@ -13,24 +13,21 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import services.DownloadFileService;
-import services.ResponseService;
-import services.script.ScriptRepository;
-import services.launcher.LauncherFileService;
 import services.launcher.LauncherService;
+import services.script.ScriptRepository;
 import temporary.ValuesForCreator;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @ContextConfiguration(classes = {
         LauncherController.class,
         LauncherService.class,
-        LauncherFileService.class,
-        ResponseService.class,
         DownloadFileService.class,
         ScriptRepository.class
 })
@@ -54,10 +51,7 @@ public class LauncherControllerIT {
         this.mockMvc
                 .perform(get("/launcher"))
                 .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(header().string("Content-Disposition", "attachment; filename=" + ValuesForCreator.LAUNCHERNAME.toString()))
-                .andExpect(content().contentType("application/x-sh"))
-                .andExpect(content().string(containsString(ValuesForCreator.INTERPRETER.toString())));
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
@@ -69,48 +63,6 @@ public class LauncherControllerIT {
 
         this.mockMvc
                 .perform(get("/launcher")
-                        .param("script", firstScript)
-                        .param("script", secondScript)
-                        .param("script", thirdScript))
-
-                .andDo(print())
-
-                .andExpect(status().isOk())
-                .andExpect(header().string("Content-Disposition", "attachment; filename=" + ValuesForCreator.LAUNCHERNAME.toString()))
-                .andExpect(content().contentType("application/x-sh"))
-
-                .andExpect(content().string(containsString(ValuesForCreator.INTERPRETER.toString())))
-
-                .andExpect(content().string(containsString(ValuesForCreator.WGETCOMMAND.toString() + firstScript)))
-                .andExpect(content().string(containsString(ValuesForCreator.WGETCOMMAND.toString() + secondScript)))
-                .andExpect(content().string(containsString(ValuesForCreator.WGETCOMMAND.toString() + thirdScript)))
-
-                .andExpect(content().string(containsString(ValuesForCreator.CHMODCOMMAND.toString() + firstScript)))
-                .andExpect(content().string(containsString(ValuesForCreator.CHMODCOMMAND.toString() + secondScript)))
-                .andExpect(content().string(containsString(ValuesForCreator.CHMODCOMMAND.toString() + thirdScript)))
-
-                .andExpect(content().string(containsString(ValuesForCreator.EXECUTECOMMAND.toString() + firstScript)))
-                .andExpect(content().string(containsString(ValuesForCreator.EXECUTECOMMAND.toString() + secondScript)))
-                .andExpect(content().string(containsString(ValuesForCreator.EXECUTECOMMAND.toString() + thirdScript)));
-    }
-
-    @Test
-    public void isGet1With0ParametersCorrect() throws Exception {
-        this.mockMvc
-                .perform(get("/launcher1"))
-                .andDo(print())
-                .andExpect(status().is4xxClientError());
-    }
-
-    @Test
-    public void isGet1With3ParametersCorrect() throws Exception {
-
-        String firstScript = "showFiles";
-        String secondScript = "showProcesses";
-        String thirdScript = "numOfFilesInHome";
-
-        this.mockMvc
-                .perform(get("/launcher1")
                         .param("script", firstScript)
                         .param("script", secondScript)
                         .param("script", thirdScript))
