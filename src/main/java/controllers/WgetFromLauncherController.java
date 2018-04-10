@@ -13,15 +13,15 @@ import java.io.IOException;
 @RestController
 public class WgetFromLauncherController {
 
-    private WgetFromLauncherService wgetFromLauncherService;
-
-    @Autowired
-    public WgetFromLauncherController(WgetFromLauncherService wgetFromLauncherService) {
-        this.wgetFromLauncherService = wgetFromLauncherService;
-    }
-
-    @GetMapping(value = "/scripts/{scriptName}", produces = "application/json")
-    public ResponseEntity<InputStreamResource> downloadScript(@PathVariable("scriptName") String scriptName) throws IOException {
-        return wgetFromLauncherService.downloadScript(scriptName);
-    }
+//    private WgetFromLauncherService wgetFromLauncherService;
+//
+//    @Autowired
+//    public WgetFromLauncherController(WgetFromLauncherService wgetFromLauncherService) {
+//        this.wgetFromLauncherService = wgetFromLauncherService;
+//    }
+//
+//    @GetMapping(value = "/scripts/{scriptName}", produces = "application/json")
+//    public ResponseEntity<InputStreamResource> downloadScript(@PathVariable("scriptName") String scriptName) throws IOException {
+//        return wgetFromLauncherService.downloadScript(scriptName);
+//    }
 }

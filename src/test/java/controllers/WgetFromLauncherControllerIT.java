@@ -1,6 +1,5 @@
 package controllers;
 
-import entity.Script;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,18 +18,10 @@ import services.ResponseService;
 import services.ScriptRepository;
 import services.script.ScriptFileService;
 import services.script.WgetFromLauncherService;
-import temporary.ValuesForCreator;
 
-
-import java.io.FileNotFoundException;
-
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -63,8 +54,9 @@ public class WgetFromLauncherControllerIT {
                 .perform(get("/scripts/1"))
                 .andDo(print());
     }
+
     @Test
-    public void isRequestToTheExistingScriptGeneratedAsExpected() throws Exception{
+    public void isRequestToTheExistingScriptGeneratedAsExpected() throws Exception {
         String existingScript = "first";
 
         this.mockMvc
