@@ -1,4 +1,4 @@
-package services;
+package services.script;
 
 import entity.Script;
 import org.springframework.core.io.InputStreamResource;
@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
+import services.ResponseService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
@@ -37,7 +38,7 @@ public class DownloadFileService {
         }
     }
 
-    public ResponseEntity<InputStreamResource> downloadFile1(Script script){
+    public ResponseEntity<InputStreamResource> downloadScript(Script script){
 
         String text = script.getText();
 

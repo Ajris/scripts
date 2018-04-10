@@ -1,4 +1,4 @@
-package services;
+package services.script;
 
 import entity.Script;
 import org.springframework.data.mongodb.repository.MongoRepository;
