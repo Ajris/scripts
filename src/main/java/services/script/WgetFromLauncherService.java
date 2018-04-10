@@ -5,10 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import services.DownloadFileService;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
-
 @Service
 public class WgetFromLauncherService {
 
@@ -20,7 +16,7 @@ public class WgetFromLauncherService {
         this.downloadFileService = downloadFileService;
     }
 
-    public ResponseEntity<InputStreamResource> downloadScript(String scriptName) throws IOException {
+    public ResponseEntity<InputStreamResource> downloadScript(String scriptName) {
         String file = scriptFileService.getFile(scriptName);
 
         return downloadFileService.downloadFile1(file);

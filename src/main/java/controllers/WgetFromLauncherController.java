@@ -8,13 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import services.script.WgetFromLauncherService;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
 public class WgetFromLauncherController {
-
-    private static final String SHELL_SCRIPT = "application/x-sh";
 
     private WgetFromLauncherService wgetFromLauncherService;
 
