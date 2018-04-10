@@ -1,23 +1,26 @@
 package services.script;
 
+import entity.Script;
 import org.springframework.stereotype.Service;
+import services.ScriptRepository;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-
-import static temporary.ValuesForController.DIRECTORY_PATH;
+import java.util.Optional;
 
 @Service
 public class ScriptFileService {
 
-    public File getFile(String name) throws FileNotFoundException {
+    private ScriptRepository scriptRepository;
 
-        File file = new File(DIRECTORY_PATH + name);
+    public ScriptFileService(ScriptRepository scriptRepository) {
+        this.scriptRepository = scriptRepository;
+    }
 
-        if (!file.exists()) {
-            throw new FileNotFoundException("file with path: " + DIRECTORY_PATH + name + " was not found.");
-        }
+    public Script getScript(String name) {
+        Optional<Script> script = scriptRepository.findByTitle(name);
+        return script.orElseThrow(NullPointerException::new);
+    }
 
-        return file;
+    public Script createScript(String title, String text) {
+        return new Script(title, text);
     }
 }

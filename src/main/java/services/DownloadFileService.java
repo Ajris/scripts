@@ -1,9 +1,14 @@
 package services;
 
+import entity.Script;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -30,5 +35,16 @@ public class DownloadFileService {
         } catch (IOException e) {
             LOGGER.log(Level.ALL, e.toString());
         }
+    }
+
+    public ResponseEntity<InputStreamResource> downloadFile1(Script script){
+
+        String text = script.getText();
+
+        return ResponseEntity
+                .ok()
+                .contentLength(text.length())
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(new InputStreamResource(new ByteArrayInputStream(text.getBytes())));
     }
 }
