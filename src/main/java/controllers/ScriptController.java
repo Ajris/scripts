@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import services.ScriptRepository;
+import services.ScriptService;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,22 +16,16 @@ import java.util.logging.Logger;
 @RestController
 public class ScriptController {
 
-    private static Logger LOGGER = Logger.getLogger(ScriptController.class.getName());
+    private ScriptService scriptService;
 
-    private ScriptRepository scriptRepository;
-
-    public ScriptController(ScriptRepository scriptRepository) {
-        this.scriptRepository = scriptRepository;
+    public ScriptController(ScriptService scriptService) {
+        this.scriptService = scriptService;
     }
 
     @PostMapping(value = "/uploadScript")
     @ResponseStatus(HttpStatus.CREATED)
     public void uploadScript(@RequestParam(name = "scriptTitle") String title,
-                             @RequestParam(name = "scriptText") String text) throws DuplicateKeyException{
-        try {
-            scriptRepository.save(new Script(title, text));
-        } catch (DuplicateKeyException e) {
-            LOGGER.log(Level.WARNING, "Duplicated Key Exception while uploading");
-        }
+                             @RequestParam(name = "scriptText") String text) {
+        scriptService.uploadScript(title, text);
     }
 }
