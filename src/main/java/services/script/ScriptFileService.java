@@ -1,23 +1,30 @@
 package services.script;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import entity.Script;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.stereotype.Service;
+import services.ScriptRepository;
 
+import javax.validation.constraints.Null;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Optional;
 
 import static temporary.ValuesForController.DIRECTORY_PATH;
 
 @Service
 public class ScriptFileService {
 
-    public File getFile(String name) throws FileNotFoundException {
+    private ScriptRepository scriptRepository;
 
-        File file = new File(DIRECTORY_PATH + name);
+    public ScriptFileService(ScriptRepository scriptRepository) {
+        this.scriptRepository = scriptRepository;
+    }
 
-        if (!file.exists()) {
-            throw new FileNotFoundException("file with path: " + DIRECTORY_PATH + name + " was not found.");
-        }
-
-        return file;
+    public String getFile(String name) {
+        Optional<Script> script = scriptRepository.findByTitle(name);
+        return script.get().getText();
     }
 }

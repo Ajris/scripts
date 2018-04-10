@@ -1,6 +1,8 @@
 package controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,8 +23,8 @@ public class WgetFromLauncherController {
         this.wgetFromLauncherService = wgetFromLauncherService;
     }
 
-    @GetMapping(value = "/scripts/{scriptName}", produces = SHELL_SCRIPT)
-    public void downloadScript(HttpServletResponse response, @PathVariable("scriptName") String scriptName) throws IOException {
-        wgetFromLauncherService.downloadScript(response, scriptName);
+    @GetMapping(value = "/scripts/{scriptName}", produces = "application/json")
+    public ResponseEntity<InputStreamResource> downloadScript(@PathVariable("scriptName") String scriptName) throws IOException {
+        return wgetFromLauncherService.downloadScript(scriptName);
     }
 }
