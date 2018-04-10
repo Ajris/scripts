@@ -13,7 +13,7 @@ import org.springframework.web.context.WebApplicationContext;
 import services.DownloadFileService;
 import services.ResponseService;
 import services.script.ScriptFileService;
-import services.script.ScriptService;
+import services.script.WgetFromLauncherService;
 import temporary.ValuesForCreator;
 
 
@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @ContextConfiguration(classes = {
         WgetFromLauncherController.class,
-        ScriptService.class,
+        WgetFromLauncherService.class,
         ResponseService.class,
         ScriptFileService.class,
         DownloadFileService.class
