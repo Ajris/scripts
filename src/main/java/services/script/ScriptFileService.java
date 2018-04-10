@@ -15,8 +15,8 @@ public class ScriptFileService {
         this.scriptRepository = scriptRepository;
     }
 
-    public String getFile(String name) {
+    public Script getFile(String name) {
         Optional<Script> script = scriptRepository.findByTitle(name);
-        return script.get().getText();
+        return script.orElseThrow(NullPointerException::new);
     }
 }

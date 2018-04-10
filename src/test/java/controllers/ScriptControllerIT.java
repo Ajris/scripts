@@ -20,7 +20,7 @@ import services.DownloadFileService;
 import services.ResponseService;
 import services.ScriptRepository;
 import services.script.ScriptFileService;
-import services.script.WgetFromLauncherService;
+import services.script.ScriptService;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @EnableMongoRepositories(basePackages = {"services"})
 @ContextConfiguration(classes = {
         ScriptRepository.class,
-        WgetFromLauncherService.class,
+        ScriptService.class,
         ResponseService.class,
         ScriptFileService.class,
         DownloadFileService.class,

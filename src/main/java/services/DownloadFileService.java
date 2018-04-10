@@ -1,5 +1,6 @@
 package services;
 
+import entity.Script;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -36,11 +37,14 @@ public class DownloadFileService {
         }
     }
 
-    public ResponseEntity<InputStreamResource> downloadFile1(String bytes){
+    public ResponseEntity<InputStreamResource> downloadFile1(Script script){
+
+        String text = script.getText();
+
         return ResponseEntity
                 .ok()
-                .contentLength(bytes.length())
+                .contentLength(text.length())
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .body(new InputStreamResource(new ByteArrayInputStream(bytes.getBytes())));
+                .body(new InputStreamResource(new ByteArrayInputStream(text.getBytes())));
     }
 }
