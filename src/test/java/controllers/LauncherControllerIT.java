@@ -12,7 +12,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import services.DownloadFileService;
+import services.DownloadScriptService;
+import services.DownloadService;
 import services.launcher.LauncherService;
 import services.script.ScriptRepository;
 import temporary.ValuesForCreator;
@@ -28,8 +29,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = {
         LauncherController.class,
         LauncherService.class,
-        DownloadFileService.class,
-        ScriptRepository.class
+        DownloadScriptService.class,
+        ScriptRepository.class,
+        DownloadService.class
 })
 @EnableAutoConfiguration
 @EnableMongoRepositories(basePackages = {"services"})

@@ -1,6 +1,5 @@
 package services;
 
-import entity.Script;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -9,11 +8,9 @@ import org.springframework.stereotype.Service;
 import java.io.ByteArrayInputStream;
 
 @Service
-public class DownloadFileService {
+public class DownloadService {
 
-    public ResponseEntity<InputStreamResource> downloadScript(Script script) {
-
-        String text = script.getText();
+    public ResponseEntity<InputStreamResource> download(String text) {
 
         return ResponseEntity
                 .ok()
