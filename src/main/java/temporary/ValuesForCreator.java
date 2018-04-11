@@ -1,7 +1,6 @@
 package temporary;
 
 public enum ValuesForCreator {
-    LAUNCHERNAME("launcher.sh"),
     INTERPRETER("#!/bin/bash"),
     WGETCOMMAND("wget localhost:8080/scripts/"),
     CHMODCOMMAND("chmod +x "),

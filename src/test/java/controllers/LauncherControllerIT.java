@@ -12,27 +12,26 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import services.script.DownloadFileService;
-import services.ResponseService;
-import services.script.ScriptRepository;
-import services.launcher.LauncherFileService;
+import services.DownloadScriptService;
+import services.DownloadService;
 import services.launcher.LauncherService;
+import services.script.ScriptRepository;
 import temporary.ValuesForCreator;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @ContextConfiguration(classes = {
         LauncherController.class,
         LauncherService.class,
-        LauncherFileService.class,
-        ResponseService.class,
-        DownloadFileService.class,
-        ScriptRepository.class
+        DownloadScriptService.class,
+        ScriptRepository.class,
+        DownloadService.class
 })
 @EnableAutoConfiguration
 @EnableMongoRepositories(basePackages = {"services"})
@@ -54,10 +53,7 @@ public class LauncherControllerIT {
         this.mockMvc
                 .perform(get("/launcher"))
                 .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(header().string("Content-Disposition", "attachment; filename=" + ValuesForCreator.LAUNCHERNAME.toString()))
-                .andExpect(content().contentType("application/x-sh"))
-                .andExpect(content().string(containsString(ValuesForCreator.INTERPRETER.toString())));
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
@@ -76,8 +72,7 @@ public class LauncherControllerIT {
                 .andDo(print())
 
                 .andExpect(status().isOk())
-                .andExpect(header().string("Content-Disposition", "attachment; filename=" + ValuesForCreator.LAUNCHERNAME.toString()))
-                .andExpect(content().contentType("application/x-sh"))
+                .andExpect(content().contentType("application/octet-stream"))
 
                 .andExpect(content().string(containsString(ValuesForCreator.INTERPRETER.toString())))
 
