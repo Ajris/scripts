@@ -1,16 +1,17 @@
-package services;
+package services.script;
 
 import entity.Script;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import services.DownloadService;
 
 @Service
-public class DownloadScriptService {
+public class ScriptDownloadService {
 
     private final DownloadService downloadService;
 
-    public DownloadScriptService(DownloadService downloadService) {
+    public ScriptDownloadService(DownloadService downloadService) {
         this.downloadService = downloadService;
     }
 

@@ -16,10 +16,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.util.NestedServletException;
-import services.DownloadScriptService;
+import services.script.ScriptDownloadService;
 import services.DownloadService;
 import services.script.ScriptRepository;
-import services.script.UploadFileService;
+import services.script.ScriptUploadService;
 import services.script.ScriptFileService;
 import services.script.ScriptService;
 
@@ -36,10 +36,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         ScriptRepository.class,
         ScriptService.class,
         ScriptFileService.class,
-        DownloadScriptService.class,
+        ScriptDownloadService.class,
         ScriptRepository.class,
         ScriptController.class,
-        UploadFileService.class,
+        ScriptUploadService.class,
         DownloadService.class
 })
 public class ScriptControllerIT {
