@@ -3,29 +3,29 @@ package creators;
 import temporary.ValuesForCreator;
 
 public class LauncherCreator {
-    private StringBuilder text1;
+    private final StringBuilder text;
 
     public LauncherCreator(String[] scriptTitles) {
-        this.text1 = generateLauncher(scriptTitles);
+        this.text = generateLauncher(scriptTitles);
     }
 
     public StringBuilder getText() {
-        return text1;
+        return text;
     }
 
     private StringBuilder generateLauncher(String[] scriptTitles){
 
-        StringBuilder text = new StringBuilder();
+        StringBuilder tpm = new StringBuilder();
 
-        text.append(ValuesForCreator.INTERPRETER.toString());
-        text.append("\n");
+        tpm.append(ValuesForCreator.INTERPRETER.toString());
+        tpm.append("\n");
 
-        addCommand(scriptTitles, text, ValuesForCreator.WGETCOMMAND);
+        addCommand(scriptTitles, tpm, ValuesForCreator.WGETCOMMAND);
 
-        addCommand(scriptTitles, text, ValuesForCreator.CHMODCOMMAND);
+        addCommand(scriptTitles, tpm, ValuesForCreator.CHMODCOMMAND);
 
-        addCommand(scriptTitles, text, ValuesForCreator.EXECUTECOMMAND);
-        return text;
+        addCommand(scriptTitles, tpm, ValuesForCreator.EXECUTECOMMAND);
+        return tpm;
     }
 
     private void addCommand(String[] scriptTitles, StringBuilder text, ValuesForCreator command) {

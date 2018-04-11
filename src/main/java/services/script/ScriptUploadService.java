@@ -8,13 +8,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Service
-public class UploadFileService {
+public class ScriptUploadService {
 
-    private static Logger LOGGER = Logger.getLogger(UploadFileService.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ScriptUploadService.class.getName());
 
-    private ScriptRepository scriptRepository;
+    private final ScriptRepository scriptRepository;
 
-    public UploadFileService(ScriptRepository scriptRepository) {
+    public ScriptUploadService(ScriptRepository scriptRepository) {
         this.scriptRepository = scriptRepository;
     }
 

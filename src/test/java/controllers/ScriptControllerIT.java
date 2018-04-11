@@ -1,6 +1,7 @@
 package controllers;
 
 import entity.Script;
+import exception.DataNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,17 +17,18 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.util.NestedServletException;
-import services.DownloadScriptService;
 import services.DownloadService;
-import services.script.ScriptRepository;
-import services.script.UploadFileService;
+import services.script.ScriptDownloadService;
 import services.script.ScriptFileService;
+import services.script.ScriptRepository;
 import services.script.ScriptService;
+import services.script.ScriptUploadService;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -36,10 +38,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         ScriptRepository.class,
         ScriptService.class,
         ScriptFileService.class,
-        DownloadScriptService.class,
+        ScriptDownloadService.class,
         ScriptRepository.class,
         ScriptController.class,
-        UploadFileService.class,
+        ScriptUploadService.class,
         DownloadService.class
 })
 public class ScriptControllerIT {
@@ -80,10 +82,11 @@ public class ScriptControllerIT {
         scriptController.uploadScript(script.getTitle(), script.getText());
     }
 
-    @Test(expected = NestedServletException.class)
+    @Test(expected = NestedServletException.class) //TODO
     public void isRespondToTheNonExistingScriptSendingException() throws Exception {
         this.mockMvc
                 .perform(get("/scripts/1"))
+                .andExpect(status().is(204))
                 .andDo(print());
     }
 

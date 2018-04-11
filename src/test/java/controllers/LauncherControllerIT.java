@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import services.DownloadScriptService;
+import services.script.ScriptDownloadService;
 import services.DownloadService;
 import services.launcher.LauncherService;
 import services.script.ScriptRepository;
@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = {
         LauncherController.class,
         LauncherService.class,
-        DownloadScriptService.class,
+        ScriptDownloadService.class,
         ScriptRepository.class,
         DownloadService.class
 })

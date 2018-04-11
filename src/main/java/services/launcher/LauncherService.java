@@ -9,7 +9,7 @@ import services.DownloadService;
 @Service
 public class LauncherService {
 
-    private DownloadService downloadService;
+    private final DownloadService downloadService;
 
     public LauncherService(DownloadService downloadService) {
         this.downloadService = downloadService;
