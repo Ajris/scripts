@@ -8,7 +8,7 @@ import java.util.Optional;
 @Service
 public class ScriptFileService {
 
-    private ScriptRepository scriptRepository;
+    private final ScriptRepository scriptRepository;
 
     public ScriptFileService(ScriptRepository scriptRepository) {
         this.scriptRepository = scriptRepository;

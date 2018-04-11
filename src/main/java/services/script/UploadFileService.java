@@ -10,9 +10,9 @@ import java.util.logging.Logger;
 @Service
 public class UploadFileService {
 
-    private static Logger LOGGER = Logger.getLogger(UploadFileService.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(UploadFileService.class.getName());
 
-    private ScriptRepository scriptRepository;
+    private final ScriptRepository scriptRepository;
 
     public UploadFileService(ScriptRepository scriptRepository) {
         this.scriptRepository = scriptRepository;

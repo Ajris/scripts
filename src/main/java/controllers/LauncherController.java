@@ -10,7 +10,7 @@ import services.launcher.LauncherService;
 @RestController
 public class LauncherController {
 
-    private LauncherService launcherService;
+    private final LauncherService launcherService;
 
     public LauncherController(LauncherService launcherService) {
         this.launcherService = launcherService;

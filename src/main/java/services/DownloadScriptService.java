@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DownloadScriptService {
 
-    private DownloadService downloadService;
+    private final DownloadService downloadService;
 
     public DownloadScriptService(DownloadService downloadService) {
         this.downloadService = downloadService;

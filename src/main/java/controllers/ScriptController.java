@@ -14,7 +14,7 @@ import services.script.ScriptService;
 @RestController
 public class ScriptController {
 
-    private ScriptService scriptService;
+    private final ScriptService scriptService;
 
     public ScriptController(ScriptService scriptService) {
         this.scriptService = scriptService;

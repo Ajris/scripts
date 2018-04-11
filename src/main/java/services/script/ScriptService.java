@@ -8,9 +8,9 @@ import services.DownloadScriptService;
 @Service
 public class ScriptService {
 
-    private ScriptFileService scriptFileService;
-    private DownloadScriptService downloadScriptService;
-    private UploadFileService uploadFileService;
+    private final ScriptFileService scriptFileService;
+    private final DownloadScriptService downloadScriptService;
+    private final UploadFileService uploadFileService;
 
     public ScriptService(ScriptFileService scriptFileService, DownloadScriptService downloadScriptService, UploadFileService uploadFileService) {
         this.scriptFileService = scriptFileService;
