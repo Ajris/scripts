@@ -1,6 +1,7 @@
 package services.script;
 
 import entity.Script;
+import exception.DataNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,7 +17,7 @@ public class ScriptFileService {
 
     public Script getScript(String name) {
         Optional<Script> script = scriptRepository.findByTitle(name);
-        return script.orElseThrow(NullPointerException::new);
+        return script.orElseThrow(DataNotFoundException::new);
     }
 
     public Script createScript(String title, String text) {

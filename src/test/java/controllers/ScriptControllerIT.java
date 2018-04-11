@@ -1,6 +1,7 @@
 package controllers;
 
 import entity.Script;
+import exception.DataNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -80,7 +81,7 @@ public class ScriptControllerIT {
         scriptController.uploadScript(script.getTitle(), script.getText());
     }
 
-    @Test(expected = NestedServletException.class)
+    @Test(expected = DataNotFoundException.class)
     public void isRespondToTheNonExistingScriptSendingException() throws Exception {
         this.mockMvc
                 .perform(get("/scripts/1"))
