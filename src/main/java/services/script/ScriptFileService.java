@@ -17,6 +17,7 @@ public class ScriptFileService {
 
     public Script getScript(String name) {
         Optional<Script> script = scriptRepository.findByTitle(name);
+
         return script.orElseThrow(DataNotFoundException::new);
     }
 

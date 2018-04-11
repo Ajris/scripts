@@ -17,17 +17,18 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.util.NestedServletException;
-import services.script.ScriptDownloadService;
 import services.DownloadService;
-import services.script.ScriptRepository;
-import services.script.ScriptUploadService;
+import services.script.ScriptDownloadService;
 import services.script.ScriptFileService;
+import services.script.ScriptRepository;
 import services.script.ScriptService;
+import services.script.ScriptUploadService;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -81,10 +82,11 @@ public class ScriptControllerIT {
         scriptController.uploadScript(script.getTitle(), script.getText());
     }
 
-    @Test(expected = DataNotFoundException.class)
+    @Test(expected = NestedServletException.class) //TODO
     public void isRespondToTheNonExistingScriptSendingException() throws Exception {
         this.mockMvc
                 .perform(get("/scripts/1"))
+                .andExpect(status().is(204))
                 .andDo(print());
     }
 
