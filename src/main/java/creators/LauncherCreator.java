@@ -20,17 +20,17 @@ public class LauncherCreator {
         text.append(ValuesForCreator.INTERPRETER.toString());
         text.append("\n");
 
-        for(String scriptName : scriptTitles){
-            text.append(ValuesForCreator.WGETCOMMAND.toString()).append(scriptName).append("\n");
-        }
+        addCommand(scriptTitles, text, ValuesForCreator.WGETCOMMAND);
 
-        for(String scriptName : scriptTitles){
-            text.append(ValuesForCreator.CHMODCOMMAND.toString()).append(scriptName).append("\n");
-        }
+        addCommand(scriptTitles, text, ValuesForCreator.CHMODCOMMAND);
 
-        for(String scriptName : scriptTitles){
-            text.append(ValuesForCreator.EXECUTECOMMAND.toString()).append(scriptName).append("\n");
-        }
+        addCommand(scriptTitles, text, ValuesForCreator.EXECUTECOMMAND);
         return text;
+    }
+
+    private void addCommand(String[] scriptTitles, StringBuilder text, ValuesForCreator command) {
+        for (String scriptName : scriptTitles) {
+            text.append(command.toString()).append(scriptName).append("\n");
+        }
     }
 }
