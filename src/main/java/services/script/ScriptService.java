@@ -21,7 +21,7 @@ public class ScriptService {
         return scriptDownloadService.downloadScript(scriptFileService.getScript(scriptName));
     }
 
-    public void uploadScript(String title, String text) {
-        scriptUploadService.uploadScript(scriptFileService.createScript(title, text));
+    public void uploadScript(String title, String text, String description) {
+        scriptUploadService.uploadScript(scriptFileService.createScript(title, text, description));
     }
 }

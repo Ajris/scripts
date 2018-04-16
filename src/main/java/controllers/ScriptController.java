@@ -23,8 +23,9 @@ public class ScriptController {
     @PostMapping(value = "/uploadScript")
     @ResponseStatus(HttpStatus.CREATED)
     public void uploadScript(@RequestParam(name = "scriptTitle") String title,
-                             @RequestParam(name = "scriptText") String text) {
-        scriptService.uploadScript(title, text);
+                             @RequestParam(name = "scriptText") String text,
+                             @RequestParam(name = "scriptDescription") String description) {
+        scriptService.uploadScript(title, text, description);
     }
 
     @GetMapping(value = "/scripts/{scriptName}", produces = "application/json")

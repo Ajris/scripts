@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.advice.ScriptControllerAdvice;
 import entity.Script;
 import exception.DataNotFoundException;
 import org.junit.Before;
@@ -23,6 +24,8 @@ import services.script.ScriptFileService;
 import services.script.ScriptRepository;
 import services.script.ScriptService;
 import services.script.ScriptUploadService;
+
+import javax.xml.crypto.Data;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -49,6 +52,12 @@ public class ScriptControllerIT {
     @Mock
     private ScriptController scriptController;
 
+    @Mock
+    private ScriptControllerAdvice scriptControllerAdvice;
+
+    @Mock
+    private ScriptFileService scriptFileService;
+
     @Autowired
     private ScriptRepository scriptRepository;
 
@@ -65,21 +74,22 @@ public class ScriptControllerIT {
 
     @Test
     public void checkIfNonExistingScriptSaves() {
-        Script script = new Script("1", "1");
-        doNothing().when(scriptController).uploadScript(script.getTitle(), script.getText());
+        Script script = new Script("1", "1", "1");
+        doNothing().when(scriptController).uploadScript(script.getTitle(), script.getText(), script.getDescription());
         if (!scriptRepository.findByTitle(script.getTitle()).isPresent()) {
-            scriptController.uploadScript(script.getTitle(), script.getText());
+            scriptController.uploadScript(script.getTitle(), script.getText(), script.getDescription());
         }
-        verify(scriptController, times(1)).uploadScript(script.getTitle(), script.getText());
+        verify(scriptController, times(1))
+                .uploadScript(script.getTitle(), script.getText(), script.getDescription());
     }
 
     @Test(expected = DuplicateKeyException.class)
     public void checkIfExistingScriptThrowAnException() {
-        Script script = new Script("first", "A");
+        Script script = new Script("first", "A", "1");
         if (scriptRepository.findByTitle(script.getTitle()).isPresent()) {
             when(scriptRepository.save(script)).thenThrow(DuplicateKeyException.class);
         }
-        scriptController.uploadScript(script.getTitle(), script.getText());
+        scriptController.uploadScript(script.getTitle(), script.getText(), script.getDescription());
     }
 
     @Test(expected = NestedServletException.class) //TODO
@@ -88,6 +98,7 @@ public class ScriptControllerIT {
                 .perform(get("/scripts/1"))
                 .andExpect(status().is(204))
                 .andDo(print());
+        verify(scriptControllerAdvice, times(1)).dataNotFoundHandler();
     }
 
     @Test
