@@ -12,6 +12,8 @@ public class Script {
     @Indexed(unique = true)
     private String title;
 
+    private String description;
+
     private String text;
 
     public Script(String title, String text) {
@@ -19,14 +21,13 @@ public class Script {
         this.text = text;
     }
 
-    public Script() {
+    public Script(String title, String description, String text) {
+        this.title = title;
+        this.description = description;
+        this.text = text;
     }
 
-    public Script(String personId, String title, String text) {
-        super();
-        this.id = personId;
-        this.title = title;
-        this.text = text;
+    public Script() {
     }
 
     public String getId() {
@@ -51,6 +52,14 @@ public class Script {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

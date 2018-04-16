@@ -21,7 +21,7 @@ public class ScriptFileService {
         return script.orElseThrow(DataNotFoundException::new);
     }
 
-    public Script createScript(String title, String text) {
-        return new Script(title, text);
+    public Script createScript(String title, String text, String description) {
+        return new Script(title, text, description);
     }
 }
