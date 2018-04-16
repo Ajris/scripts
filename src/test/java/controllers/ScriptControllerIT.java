@@ -85,9 +85,9 @@ public class ScriptControllerIT {
 
     @Test(expected = DuplicateKeyException.class)
     public void checkIfExistingScriptThrowAnException() {
-        Script script = new Script("first", "A", "1");
+        Script script = new Script("title", "A", "1");
         if (scriptRepository.findByTitle(script.getTitle()).isPresent()) {
-            when(scriptRepository.save(script)).thenThrow(DuplicateKeyException.class);
+            doNothing().when(scriptRepository.save(script));
         }
         scriptController.uploadScript(script.getTitle(), script.getText(), script.getDescription());
     }
@@ -103,12 +103,12 @@ public class ScriptControllerIT {
 
     @Test
     public void isRequestToTheExistingScriptGeneratedAsExpected() throws Exception {
-        String existingScript = "first";
+        String existingScript = "title";
 
         this.mockMvc
                 .perform(get("/scripts/" + existingScript))
                 .andDo(print())
                 .andExpect(content().contentType("application/octet-stream"))
-                .andExpect(content().string("a"));
+                .andExpect(content().string("Paste your script here."));
     }
 }
