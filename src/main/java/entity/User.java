@@ -1,5 +1,6 @@
 package entity;
 
+import org.bson.internal.Base64;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -26,7 +27,7 @@ public class User {
     public User(String id, String login, String password, String username, String email, String[] scripts) {
         this.id = id;
         this.login = login;
-        this.password = password;
+        this.password = Base64.encode(password.getBytes());
         this.username = username;
         this.email = email;
         this.scripts = scripts;

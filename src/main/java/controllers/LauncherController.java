@@ -12,7 +12,7 @@ public class LauncherController {
 
     private final LauncherService launcherService;
 
-    public LauncherComntroller(LauncherService launcherService) {
+    public LauncherController(LauncherService launcherService) {
         this.launcherService = launcherService;
     }
 
