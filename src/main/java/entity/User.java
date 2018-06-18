@@ -21,6 +21,8 @@ public class User {
 
     private String[] scripts;
 
+    private String[] Role;
+
     public User() {
     }
 
@@ -31,6 +33,20 @@ public class User {
         this.username = username;
         this.email = email;
         this.scripts = scripts;
+    }
+
+    public User(String id, String login, String password, String username, String email, String[] scripts, String[] role) {
+        this.id = id;
+        this.login = login;
+        this.password = Base64.encode(password.getBytes());
+        this.username = username;
+        this.email = email;
+        this.scripts = scripts;
+        Role = role;
+    }
+
+    public String[] getRole() {
+        return Role;
     }
 
     public String[] getScripts() {
