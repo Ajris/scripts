@@ -61,10 +61,10 @@ public class User {
         return login;
     }
 
+
     public String getPassword() {
         return password;
     }
-
     public String getUsername() {
         return username;
     }
