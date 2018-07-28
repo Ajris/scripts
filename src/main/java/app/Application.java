@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @SpringBootApplication
 @ComponentScan(basePackages = {"controllers", "services", "services.launcher"})
 @EnableMongoRepositories(basePackages = {"services"})
-@EnableAutoConfiguration
 @EntityScan(basePackages = {"entity"})
 public class Application {
     public static void main(String[] args) {
