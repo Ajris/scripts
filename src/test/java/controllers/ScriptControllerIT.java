@@ -3,7 +3,9 @@ package controllers;
 import controllers.advice.ScriptControllerAdvice;
 import entity.Script;
 import exception.DataNotFoundException;
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -29,6 +31,7 @@ import javax.xml.crypto.Data;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -72,15 +75,18 @@ public class ScriptControllerIT {
     }
 
 
+    @Ignore
     @Test
-    public void checkIfNonExistingScriptSaves() {
-        Script script = new Script("1", "1", "1");
-        doNothing().when(scriptController).uploadScript(script.getTitle(), script.getText(), script.getDescription());
+    public void checkIfNonExistingScriptSaves() throws Exception{
+        Script script = new Script("xxx1", "1", "1");
         if (!scriptRepository.findByTitle(script.getTitle()).isPresent()) {
-            scriptController.uploadScript(script.getTitle(), script.getText(), script.getDescription());
+            mockMvc.perform(post("/scripts/" + script.getTitle())
+                    .param("scriptTitle", script.getTitle())
+                    .param("scriptDescription", script.getDescription())
+                    .param("scriptText", script.getText()))
+                    .andExpect(status().isOk());
         }
-        verify(scriptController, times(1))
-                .uploadScript(script.getTitle(), script.getText(), script.getDescription());
+        Assert.assertEquals(script, scriptRepository.findByTitle(script.getTitle()).get());
     }
 
     @Test(expected = DuplicateKeyException.class)
@@ -95,7 +101,7 @@ public class ScriptControllerIT {
     @Test(expected = NestedServletException.class) //TODO
     public void isRespondToTheNonExistingScriptSendingException() throws Exception {
         this.mockMvc
-                .perform(get("/scripts/1"))
+                .perform(get("/scripts/dx1"))
                 .andExpect(status().is(204))
                 .andDo(print());
         verify(scriptControllerAdvice, times(1)).dataNotFoundHandler();
