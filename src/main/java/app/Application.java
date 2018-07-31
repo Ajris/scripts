@@ -8,9 +8,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"controllers", "services", "services.launcher"})
-@EnableMongoRepositories(basePackages = {"services"})
-@EntityScan(basePackages = {"entity"})
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
