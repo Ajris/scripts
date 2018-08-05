@@ -16,8 +16,9 @@ public class LauncherController {
         this.launcherService = launcherService;
     }
 
-    @GetMapping(value = "/launcher", produces = "application/json")
+    @GetMapping(value = "/launcher")
     public ResponseEntity<InputStreamResource> downloadScript(@RequestParam("script") String[] scriptNames) {
+        System.out.println("XD");
         return launcherService.downloadLauncher(scriptNames);
     }
 }

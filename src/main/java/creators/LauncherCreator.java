@@ -13,7 +13,7 @@ public class LauncherCreator {
         return text;
     }
 
-    private StringBuilder generateLauncher(String[] scriptTitles){
+    private StringBuilder generateLauncher(String[] scriptTitles) {
 
         StringBuilder tpm = new StringBuilder();
 
