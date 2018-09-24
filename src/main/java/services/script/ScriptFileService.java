@@ -22,6 +22,10 @@ public class ScriptFileService {
     }
 
     public Script createScript(String title, String text, String description) {
-        return new Script(title, text, description);
+        return Script.builder()
+        .title(title)
+        .text(text)
+        .description(description)
+        .build();
     }
 }

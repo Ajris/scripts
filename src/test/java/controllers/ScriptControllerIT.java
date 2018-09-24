@@ -78,7 +78,11 @@ public class ScriptControllerIT {
     @Ignore
     @Test
     public void checkIfNonExistingScriptSaves() throws Exception{
-        Script script = new Script("xxx1", "1", "1");
+        Script script = Script.builder()
+                .text("xxx1")
+                .text("1")
+                .description("1")
+                .build();
         if (!scriptRepository.findByTitle(script.getTitle()).isPresent()) {
             mockMvc.perform(post("/scripts/" + script.getTitle())
                     .param("scriptTitle", script.getTitle())
@@ -91,7 +95,11 @@ public class ScriptControllerIT {
 
     @Test(expected = DuplicateKeyException.class)
     public void checkIfExistingScriptThrowAnException() {
-        Script script = new Script("title", "A", "1");
+        Script script = Script.builder()
+                .title("title")
+                .text("A")
+                .description("1")
+                .build();
         if (scriptRepository.findByTitle(script.getTitle()).isPresent()) {
             doNothing().when(scriptRepository.save(script));
         }
